@@ -37,14 +37,14 @@
     cursor: pointer;
 }
 .explore_menu hr{
-    margin: 10px 0px;
+    margin: 12px 0px;
     height: 2px;
     background-color: #e2e2e2;
     border: none;
 }
 .explore_menu_list_item .active{
-    border: 12px solid tomato;
+    border: 10px ridge tomato;
     border-radius: 24% 76% 35% 65% / 73% 27% 73% 27%  ;
     clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-    padding: 5px;
+    padding: 2px;
 }

@@ -3,6 +3,7 @@
     margin: 30px auto;
     background: url('/header_img.png') no-repeat;
     position: relative;
+    border-radius: 50px;
 }
 .header_contents{
     position: absolute;
