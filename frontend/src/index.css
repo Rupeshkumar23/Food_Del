@@ -6,7 +6,7 @@
   font-family: "Outfit", sans-serif;
 }
 body{
-  min-width: 100vh;
+  min-height: 100vh;
 }
 a{
   text-decoration: none;
