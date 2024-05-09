@@ -16,6 +16,7 @@
 }
 .add_product_name input, .add_product_description textarea{
     padding: 10px;
+    resize: none;
 }
 .add_category_price{
     display: flex;

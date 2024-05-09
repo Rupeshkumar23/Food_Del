@@ -28,4 +28,14 @@ hr{
 }
 .cursor{
   cursor: pointer;
+  width: 25px;
+  border: 1px solid black;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+.cursor:hover{
+  background-color: tomato;
+  color: white;
 }

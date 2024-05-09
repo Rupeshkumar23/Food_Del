@@ -57,7 +57,7 @@
 .nav_profile_dropdown{
     position: absolute;
     display: none;
-    right: -100px;
+    right: 0px;
     z-index: 1;
     animation: fadeIn 1s;
 }
