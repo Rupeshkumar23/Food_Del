@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { assets } from "../../assets/assets";
 import "./Add.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Add = () => {
-  const url = "http://localhost:4000";
+const Add = ({url}) => {
+ 
 
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
@@ -71,6 +72,7 @@ const Add = () => {
             type="text"
             name="name"
             placeholder="Type here"
+            required
           />
         </div>
         <div className="add_product_description flex_col">
@@ -106,6 +108,7 @@ const Add = () => {
               type="number"
               name="price"
               placeholder="$20"
+              required
             />
           </div>
         </div>
