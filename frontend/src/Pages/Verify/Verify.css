@@ -18,16 +18,16 @@
     
 } */
 .loader {
-    width: 48px;
-    height: 48px;
+    width: 55px;
+    height: 55px;
     margin: auto;
     position: relative;
   }
   
   .loader:before {
     content: '';
-    width: 48px;
-    height: 5px;
+    width: 55px;
+    height: 10px;
     background: #f0808050;
     position: absolute;
     top: 60px;
