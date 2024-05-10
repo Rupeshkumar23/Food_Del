@@ -3,7 +3,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    text-transform: uppercase;
 }
+.scrollTop{
+    position: fixed;
+    bottom: 10px;
+    z-index: 10;
+    right:20px;
+    background:white;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border: 5px ridge tomato;
+    cursor: pointer;
+  }
+
+  
 .navbar .logo{
     width: 150px;
 }

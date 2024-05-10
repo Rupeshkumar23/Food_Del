@@ -1,20 +1,41 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useState } from "react";
+import  { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
+import arrow from "../../assets/icons8-up.gif";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("menu");
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
-  const logout =()=>{
-    localStorage.removeItem('token');
+
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
     setToken("");
-    navigate("/"); 
-  }
+    navigate("/");
+  };
   return (
     <div className="navbar">
       <Link to="/">
@@ -66,7 +87,7 @@ const Navbar = ({ setShowLogin }) => {
           <div className="navbar_profile">
             <img src={assets.profile_icon} alt="profile" />
             <ul className="nav_profile_dropdown">
-              <li onClick={()=>navigate('/myorders')}>
+              <li onClick={() => navigate("/myorders")}>
                 <img src={assets.bag_icon} alt="bag_icon" />
                 <p>Orders</p>
               </li>
@@ -79,6 +100,12 @@ const Navbar = ({ setShowLogin }) => {
           </div>
         )}
       </div>
+      {/* Scroll Top button */}
+      {showScrollTop && (
+        <div className="scrollTop" onClick={scrollTop}>
+          <img width={25} src={arrow} alt="img" />
+        </div>
+      )}
     </div>
   );
 };

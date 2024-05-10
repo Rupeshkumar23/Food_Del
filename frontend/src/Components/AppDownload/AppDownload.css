@@ -17,6 +17,15 @@
     transition: 0.5s;
     cursor: pointer;
 }
+.img_mobile{
+    filter: drop-shadow(0 0 0.75rem tomato);
+}
+.img_mobile:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+    filter: none;
+    /* filter: drop-shadow(0 0 0.75rem tomato); */
+}
 .app_download_platforms img:hover{
 transform: scale(1.05);
 }

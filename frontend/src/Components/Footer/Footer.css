@@ -33,6 +33,10 @@ color: white;
     width: 40px;
     margin-right: 15px;
     cursor: pointer;
+    transition: .3s;
+}
+.footer_social_icons img:hover{
+    transform: scale(1.1);
 }
 .footer hr{
     width: 100%;
