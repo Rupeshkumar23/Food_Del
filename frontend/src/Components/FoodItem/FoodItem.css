@@ -5,10 +5,15 @@
     box-shadow: 0px 0px 10px #00000015;
     transition: 0.3;
     animation: fadeIn 1s;
+    overflow: hidden; 
 }
 .food_item_image{
     width: 100%;
     border-radius: 15px 15px 0px 0px;
+}
+.food_item_image:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
 }
 .food_item_info{
     padding: 20px;
