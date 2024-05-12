@@ -43,3 +43,19 @@ app.listen(port,()=>{
 })
 
 
+
+
+
+
+// {
+//     "version":2,
+//     "builds":[
+//         { "src" : ".js", "use":"@vercel/node"}
+//     ],
+//     "routes": [
+//         {
+//             "src":"/(.*)",
+//             "dest":"/"
+//         }
+//     ]
+// }
