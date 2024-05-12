@@ -16,7 +16,7 @@ const port = 4000;
 app.use(express.json());
 app.use(cors(
     {
-        origin: ["https://fooddel-rupeshkumar23s-projects.vercel.app"], 
+        origin: true, // allow all origins
         methods: ["GET", "POST"],
         credentials:true
     }
@@ -41,9 +41,5 @@ app.get("/",(req,res)=>{
 app.listen(port,()=>{
     console.log(`Server Started on http://localhost:${port}`)
 })
-
-
-
-
 
 
