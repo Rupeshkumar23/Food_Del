@@ -7,6 +7,9 @@
     color: #262626;
     font-weight: 500;
 }
+.dark .explore_menu h1{
+    color: white;
+}
 .explore_menu_text{
     max-width: 60%;
     columns: #808080;
@@ -35,6 +38,9 @@
     color: #747474;
     font-size: max(1.4vw,16px);
     cursor: pointer;
+}
+.dark .explore_menu_list_item p{
+    color: white;
 }
 .explore_menu hr{
     margin: 12px 0px;

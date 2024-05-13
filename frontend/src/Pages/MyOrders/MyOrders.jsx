@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import "./MyOrders.css";
@@ -5,10 +6,13 @@ import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
 import { assets } from "../../assets/assets";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const MyOrders = () => {
   const { url, token } = useContext(StoreContext);
   const [data, setData] = useState([]);
+  const { theme } = useContext(ThemeContext);
+  const darkModeClass = theme === 'dark' ? 'dark' : '';
 
   const fetchOrders = async () => {
     const response = await axios.post(
@@ -25,7 +29,7 @@ const MyOrders = () => {
   }, [token]);
 
   return (
-    <div className="my_orders">
+    <div className={`my_orders ${darkModeClass}`}>
       <h2>My Orders</h2>
       <div className="container">
         {data.map((order, index) => {

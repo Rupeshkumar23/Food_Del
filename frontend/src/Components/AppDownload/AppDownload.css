@@ -29,3 +29,8 @@
 .app_download_platforms img:hover{
 transform: scale(1.05);
 }
+.dark .app_download_platforms img{
+    filter: drop-shadow(2px 2px 2px  white);
+    border: 1px ridge white;
+    border-radius: 1rem;
+}

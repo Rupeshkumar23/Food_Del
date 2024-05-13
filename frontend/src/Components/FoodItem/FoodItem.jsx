@@ -3,11 +3,14 @@ import { useContext } from "react";
 import { assets } from "../../assets/assets";
 import "./FoodItem.css";
 import { StoreContext } from "../../Context/StoreContext";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const FoodItem = ({ id, name, price, description, image }) => {
   const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
+  const { theme } = useContext(ThemeContext); 
+  const darkModeClass = theme === 'dark' ? 'dark' : '';
   return (
-    <div className="food_item">
+    <div className={`food_item ${darkModeClass}`}>
       <div className="food_item_img_container">
         <img className="food_item_image" src={url+"/images/"+image} alt="food_item_image" />
         {!cartItems[id] ? (
@@ -24,7 +27,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
               alt="remove"
               onClick={() => removeFromCart(id)}
             />
-            <p>{cartItems[id]}</p>
+            <p className="no_id">{cartItems[id]}</p>
             <img
               src={assets.add_icon_green}
               alt="add"

@@ -1,0 +1,53 @@
+.toggle-switch {
+  position: relative;
+  width: 60px; /* Reduced width */
+  height: 30px; /* Reduced height */
+  --light: tomato;
+  --dark: #ffffff;
+}
+
+.switch-label {
+  position: absolute;
+  width: 100%;
+  height: 30px; /* Reduced height */
+  background-color: #fff2ef !important;
+  border-radius: 15px; /* Half of the reduced height */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 20px -4px inset, rgba(0, 0, 0, 0.3) 0px 6px 12px -6px inset;
+  cursor: pointer;
+  border: 2px solid var(--dark); /* Reduced border size */
+}
+
+.checkbox {
+  position: absolute;
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px; /* Half of the reduced height */
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider {
+  background-color: var(--light);
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  top: 5px; /* Adjusted top position */
+  left: 5px; /* Adjusted left position */
+  width: 15px; /* Adjusted width */
+  height: 15px; /* Adjusted height */
+  border-radius: 50%;
+  box-shadow: inset 6px -1px 0px 0px var(--light);
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider::before {
+  transform: translateX(30px); /* Adjusted translation */
+  background-color: var(--dark);
+  box-shadow: none;
+}

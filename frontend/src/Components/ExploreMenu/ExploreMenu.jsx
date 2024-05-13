@@ -1,10 +1,14 @@
 /* eslint-disable react/prop-types */
 import "./ExploreMenu.css";
 import { menu_list } from "../../assets/assets";
+import { ThemeContext } from "../../Context/ThemeContext";
+import { useContext } from "react";
 
 const ExploreMenu = ({ category, setCategory }) => {
+  const { theme } = useContext(ThemeContext);
+  const darkModeClass = theme === 'dark' ? 'dark' : ''; 
   return (
-    <div className="explore_menu" id="explore_menu">
+    <div className={`explore_menu ${darkModeClass}`} id="explore_menu">
       <h1>Explore our menu</h1>
       <p className="explore_menu_text">
         Choose from a diverse menu featuring a delectable array of dishes

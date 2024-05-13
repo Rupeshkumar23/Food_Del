@@ -1,13 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import  { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import arrow from "../../assets/icons8-up.gif";
+import ToggleButton from "../ToggleButton.js/ToggleButton";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const Navbar = ({ setShowLogin }) => {
+  const { theme } = useContext(ThemeContext); // Assuming you have a ThemeContext
+  const profileIconSrc =
+    theme === "dark" ? assets.profile_icon_dark : assets.profile_icon_light;
+  const shopCartIconSrc =
+    theme === "dark" ? assets.shop_cart_dark : assets.shop_cart_light;
+  const darkModeClass = theme === "dark" ? "dark" : "";
   const [menu, setMenu] = useState("menu");
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
@@ -37,7 +45,7 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
   return (
-    <div className="navbar">
+    <div className={`navbar ${darkModeClass}`}>
       <Link to="/">
         {" "}
         <img src={assets.logo} alt="logo" className="logo" />
@@ -73,11 +81,24 @@ const Navbar = ({ setShowLogin }) => {
         </a>
       </ul>
       <div className="navbar_right">
-        <img src={assets.search_icon} alt="search_icon" />
+        <div className="group">
+          <svg viewBox="0 0 24 24" aria-hidden="true" className="icon">
+            <g>
+              <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+            </g>
+          </svg>
+          <input className="input" type="search" placeholder="Search" />
+        </div>
+        <ToggleButton />
         <div className="navbar_search_icon">
           <Link to="/cart">
             {" "}
-            <img src={assets.basket_icon} alt="basket_icon" />
+            <img
+              width={27}
+              style={{ paddingTop: "8px" }}
+              src={shopCartIconSrc}
+              alt="basket_icon"
+            />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
@@ -85,7 +106,7 @@ const Navbar = ({ setShowLogin }) => {
           <button onClick={() => setShowLogin(true)}>sign in</button>
         ) : (
           <div className="navbar_profile">
-            <img src={assets.profile_icon} alt="profile" />
+            <img width={27} src={profileIconSrc} alt="profile" />
             <ul className="nav_profile_dropdown">
               <li onClick={() => navigate("/myorders")}>
                 <img src={assets.bag_icon} alt="bag_icon" />

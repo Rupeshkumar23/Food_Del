@@ -7,7 +7,9 @@
     animation: fadeIn 1s;
     overflow: hidden; 
     border-bottom: 1px ridge tomato;
-  
+}
+.dark .no_id{
+    color: black;
 }
 .food_item_image{
     width: 100%;
@@ -37,6 +39,12 @@
     color: #676767;
     font-size: 12px;
 }
+.dark .food_item_desc{
+    color: white;
+}
+.food_item_desc .dark{
+    color: white;
+}
 .food_item_price{
     color: tomato;
     font-size: 22px;
@@ -65,8 +73,8 @@
     padding: 6px;
     border-radius: 50px;
     background-color: white;
-   
 }
+
 .food_item_counter img{
     width: 30px;
     cursor: pointer;

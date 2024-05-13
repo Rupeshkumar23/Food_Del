@@ -1,15 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../Context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const Cart = () => {
   const { cartItems, food_list,url, removeFromCart,getTotalCartAmount } = useContext(StoreContext);
-
+  const { theme } = useContext(ThemeContext);
+  const darkModeClass = theme === 'dark' ? 'dark' : '';
   const navigate =useNavigate();
 
   return (
-    <div className="cart">
+    <div className={`cart ${darkModeClass}`}>
       <div className="cart_items">
         <div className="cart_items_title">
           <p>Items</p>

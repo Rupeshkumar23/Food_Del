@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from './Components/Navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home/Home'
@@ -10,11 +10,15 @@ import Footer from './Components/Footer/Footer'
 import LoginPopUp from './Components/LoginPopUp/LoginPopUp'
 import Verify from './Pages/Verify/Verify'
 import MyOrders from './Pages/MyOrders/MyOrders'
+import { ThemeContext } from './Context/ThemeContext'
+
 
 const App = () => {
   const [showLogin,setShowLogin]=useState(false);
+  const { theme } = useContext(ThemeContext);
   return (
     <>
+    <div className={theme}>
     {showLogin?<LoginPopUp setShowLogin={setShowLogin}/>:<></>}
     <div className='app'>
       <Navbar setShowLogin={setShowLogin}/>
@@ -27,6 +31,7 @@ const App = () => {
       </Routes>
     </div>
     <Footer/>
+    </div>
     </>
   )
 }
