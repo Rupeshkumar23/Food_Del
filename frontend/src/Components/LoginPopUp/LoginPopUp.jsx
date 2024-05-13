@@ -4,7 +4,13 @@ import "./LoginPopUp.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
+import { ThemeContext } from "../../Context/ThemeContext";
 const LoginPopUp = ({ setShowLogin }) => {
+  
+  const { theme } = useContext(ThemeContext);
+  const darkModeClass = theme === "dark" ? "dark" : "";
+  const closeIconSrc =
+  theme === "dark" ? assets.close_dark : assets.close_light;
 
   const {url,setToken} =useContext(StoreContext);
   const [currState, setCurrState] = useState("Login");
@@ -42,13 +48,13 @@ const LoginPopUp = ({ setShowLogin }) => {
   }
 
   return (
-    <div className="login_popup">
+    <div className={`login_popup ${darkModeClass}`}>
       <form onSubmit={onLogin} className="login_popup_container">
         <div className="login_popup_title">
           <h2>{currState}</h2>
           <img
             onClick={() => setShowLogin(false)}
-            src={assets.cross_icon}
+            src={closeIconSrc}
             alt="cross_icon"
           />
         </div>

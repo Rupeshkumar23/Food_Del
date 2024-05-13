@@ -63,6 +63,8 @@ import profile_icon_dark from './profile_icon_dark.png'
 import profile_icon_light from './profile_icon_light.png'
 import shop_cart_light from './shop_cart_light.png'
 import shop_cart_dark from './shop_cart_dark.png'
+import close_dark from './close_dark.png'
+import close_light from './close_light.png'
 
 export const assets = {
     logo,
@@ -87,7 +89,9 @@ export const assets = {
     profile_icon_dark,
     profile_icon_light,
     shop_cart_light,
-    shop_cart_dark
+    shop_cart_dark,
+    close_light,
+    close_dark
    
 }
 
