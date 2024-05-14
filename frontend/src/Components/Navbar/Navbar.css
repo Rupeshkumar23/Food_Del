@@ -21,10 +21,7 @@
   border: 5px ridge tomato;
   cursor: pointer;
 }
-.dark .scrollTop {
-  background-color: tomato;
-  border: 5px ridge #ffffff;
-}
+
 
 .navbar .logo {
   width: 150px;
