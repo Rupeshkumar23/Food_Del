@@ -8,7 +8,7 @@ const Video = () => {
   const darkModeClass = theme === "dark" ? "dark" : "";
   return (
     <div className={`vid_1 ${darkModeClass}`}>
-      <video src={assets.vid_1} autoPlay loop></video>
+      <video src={assets.vid_1_c} autoPlay loop></video>
     </div>
   )
 }
