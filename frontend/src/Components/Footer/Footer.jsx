@@ -32,7 +32,7 @@ const Footer = () => {
             </div>
         </div>
         <hr/>
-        <p className="footer_copyright">Copyright {new Date().getFullYear()} &copy; Tomato.com - All Right Reserved</p>
+        <p className="footer_copyright">Copyright {new Date().getFullYear()} &copy; freshbite.com - All Right Reserved</p>
     </div>
   )
 }
