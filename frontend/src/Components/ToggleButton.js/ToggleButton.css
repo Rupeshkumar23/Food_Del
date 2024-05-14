@@ -51,3 +51,8 @@
   background-color: var(--dark);
   box-shadow: none;
 }
+@media (max-width:600px) {
+  .slider::before{
+    left: 2px;
+  }
+}
