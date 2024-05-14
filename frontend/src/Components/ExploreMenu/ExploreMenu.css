@@ -51,6 +51,7 @@
 .explore_menu_list_item .active{
    filter: drop-shadow(0px 0px 5px tomato);
    border: 5px dashed tomato;
+   padding: 5px;
 }
 /* .explore_menu_list_item .active{
     border: 10px ridge tomato;
