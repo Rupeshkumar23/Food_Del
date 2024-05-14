@@ -10,7 +10,7 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const Navbar = ({ setShowLogin }) => {
-  const { theme } = useContext(ThemeContext); // Assuming you have a ThemeContext
+  const { theme } = useContext(ThemeContext); 
   const profileIconSrc =
     theme === "dark" ? assets.profile_icon_dark : assets.profile_icon_light;
   const shopCartIconSrc =
