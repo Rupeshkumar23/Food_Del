@@ -10,7 +10,7 @@ const AppDownload = () => {
   const darkModeClass = theme === 'dark' ? 'dark' : '';
   return (
     <div className={`app_download ${darkModeClass}`} id="app_download">
-        <p>For Better Experience Download <br/>Tomato App</p>
+        <p>For Better Experience Download <br/>FreshBite App</p>
         <img className='img_mobile' src={mobile} width={200} alt="mobile" />
     <div className="app_download_platforms">
         <img src={assets.play_store} alt="play" />
