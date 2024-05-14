@@ -65,6 +65,7 @@ import shop_cart_light from './shop_cart_light.png'
 import shop_cart_dark from './shop_cart_dark.png'
 import close_dark from './close_dark.png'
 import close_light from './close_light.png'
+import vid_1 from './vid_1.mp4'
 
 export const assets = {
     logo,
@@ -91,7 +92,8 @@ export const assets = {
     shop_cart_light,
     shop_cart_dark,
     close_light,
-    close_dark
+    close_dark,
+    vid_1
    
 }
 

@@ -6,7 +6,7 @@ import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import arrow from "../../assets/icons8-up.gif";
-import ToggleButton from "../ToggleButton.js/ToggleButton";
+import ToggleButton from "../ToggleButton/ToggleButton";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const Navbar = ({ setShowLogin }) => {
@@ -89,7 +89,7 @@ const Navbar = ({ setShowLogin }) => {
           </svg>
           <input className="input" type="search" placeholder="Search" />
         </div>
-        <ToggleButton />
+        <ToggleButton/>
         <div className="navbar_search_icon">
           <Link to="/cart">
             {" "}

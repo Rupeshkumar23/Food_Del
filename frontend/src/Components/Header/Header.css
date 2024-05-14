@@ -1,10 +1,11 @@
 .header{
     height: 34vw;
     margin: 30px auto;
-    background: url('/header_img.png') no-repeat;
+    /* background: url('/header_img.png') no-repeat; */
     position: relative;
     border-radius: 50px;
 }
+
 .header_contents{
     position: absolute;
     display: flex;

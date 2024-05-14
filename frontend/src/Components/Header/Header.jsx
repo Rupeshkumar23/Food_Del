@@ -1,8 +1,10 @@
+import Video from "../videos/Video";
 import "./Header.css";
 
 const Header = () => {
   return (
     <div className="header" id="header">
+      <Video/>
       <div className="header_contents">
         <h2>Order your favorite food here</h2>
         <p>
