@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="footer_content">
             <div className="footer_content_left">
                 <img width={280} src={assets.logo} alt="logo" />
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, dicta deleniti, quos vel, odio officia quasi unde laborum eos facilis porro quidem non beatae dolores molestias optio ea doloremque sint!</p>
+                <p style={{textAlign:"justify"}}>At FreshBite, we believe great food brings people together. Our team curates a menu blending tradition and innovation, ensuring every meal delights. Whether it's a quick bite or a gourmet feast, we deliver exceptional taste and service right to your door. Thank you for choosing FreshBite for your dining journey.</p>
                 <div className="footer_social_icons">
                     <img src={assets.facebook_icon} alt="" />
                     <img src={assets.twitter_icon} alt="" />
