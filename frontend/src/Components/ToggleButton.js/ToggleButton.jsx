@@ -12,12 +12,17 @@ const ToggleButton = () => {
   const handleChange = () => {
     toggleTheme();
   };
+  const getTitle = () => {
+    return theme === 'dark' ? '🌞' : '🌜';
+    // return theme === 'dark' ? 'Switch to🌞Light mode' : 'Switch to🌜Dark mode';
+  };
+ 
   
 
   return (
     <div className={`toggle-switch ${darkModeClass}`}>
-    <label className="switch-label">
-      <input type="checkbox" className="checkbox" checked={theme==="dark"} onChange={handleChange} />
+    <label title={getTitle()} className="switch-label">
+      <input  type="checkbox" className="checkbox" checked={theme==="dark"} onChange={handleChange} />
       <span className="slider"></span>
     </label>
   </div>  
