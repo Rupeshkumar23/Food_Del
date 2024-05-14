@@ -121,6 +121,7 @@
 .nav_profile_dropdown li:hover {
   color: tomato;
 }
+
 @media (max-width: 1050px) {
   .navbar .logo {
     width: 140px;
@@ -139,7 +140,7 @@
     padding: 8px 25px;
   }
 }
-@media (max-width: 900px) {
+@media (max-width: 920px) {
   .navbar .logo {
     width: 120px;
   }
@@ -158,12 +159,12 @@
     font-size: 15px;
   }
 }
-@media (max-width: 750px) {
+@media (max-width: 794px) {
   .navbar_menu {
     display: none;
   }
 }
-@media (max-width: 1060px) {
+@media (max-width: 1246px) {
   .group .input {
     display: none;
   }

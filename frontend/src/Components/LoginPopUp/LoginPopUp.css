@@ -25,6 +25,7 @@
 .dark .login_popup_container{
     background-color:#222831;
     color: #ffffff;
+    border: 1px ridge white;
 }
 .login_popup_title{
     display: flex;
