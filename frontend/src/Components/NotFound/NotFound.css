@@ -2,6 +2,7 @@
   display: grid;
   place-items: center;
   margin-top: 3rem;
+  min-height: 50vh;
 }
 .gif_img img {
   background: #0000004b;
