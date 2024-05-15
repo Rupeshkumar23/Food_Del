@@ -61,6 +61,9 @@
     .vid_1 {
       height: 180px;
     }
+    .vid_1 video{
+      border-radius: 1.5rem;
+    }
   }
   
   @media (max-width: 423px) {
