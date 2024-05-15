@@ -67,7 +67,9 @@ import close_dark from './close_dark.png'
 import close_light from './close_light.png'
 import vid_1 from './vid_1.mp4'
 import vid_1_c from './vid_1_c.mp4'
+import vid_2 from './vid_2.mp4'
 import page_404 from './404_page.gif'
+
 
 export const assets = {
     logo,
@@ -97,7 +99,8 @@ export const assets = {
     close_dark,
     vid_1,
     vid_1_c,
-    page_404
+    page_404,
+    vid_2
    
 }
 

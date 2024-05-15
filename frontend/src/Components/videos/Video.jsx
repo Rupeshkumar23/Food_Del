@@ -9,7 +9,7 @@ const Video = () => {
   return (
     <div className={`vid_1 ${darkModeClass}`}>
       <video autoPlay loop muted>
-        <source src={assets.vid_1} type="video/mp4" />
+        <source src={assets.vid_2} type="video/mp4" />
       </video>
     </div>
   );
