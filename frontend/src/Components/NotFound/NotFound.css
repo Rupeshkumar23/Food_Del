@@ -1,15 +1,39 @@
-.gif_img{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3rem;
+.gif_img {
+  display: grid;
+  place-items: center;
+  margin-top: 3rem;
 }
-.gif_img img{
-    filter: blur(10px);
+.gif_img img {
+  background: #0000004b;
+  border-radius: 3rem;
 }
-.gif_img img:hover{
-    filter: blur(0px);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 3rem;
-   
+@media (max-width: 1338px) {
+  .gif_img img {
+    width: 900px;
+  }
+}
+@media (max-width: 1001px) {
+  .gif_img img {
+    width: 700px;
+  }
+}
+@media (max-width: 798px) {
+  .gif_img img {
+    width: 600px;
+  }
+}
+@media (max-width: 684px) {
+  .gif_img img {
+    width: 500px;
+  }
+}
+@media (max-width: 561px) {
+  .gif_img img {
+    width: 400px;
+  }
+}
+@media (max-width: 455px) {
+  .gif_img img {
+    width: 300px;
+  }
 }
