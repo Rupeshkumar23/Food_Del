@@ -1,0 +1,15 @@
+.gif_img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+.gif_img img{
+    filter: blur(10px);
+}
+.gif_img img:hover{
+    filter: blur(0px);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3rem;
+   
+}

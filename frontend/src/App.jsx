@@ -11,6 +11,7 @@ import LoginPopUp from './Components/LoginPopUp/LoginPopUp'
 import Verify from './Pages/Verify/Verify'
 import MyOrders from './Pages/MyOrders/MyOrders'
 import { ThemeContext } from './Context/ThemeContext'
+import NotFound from './Components/NotFound/NotFound'
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/order' element={<PlaceOrder/>}/>
         <Route path="/verify" element={<Verify/>}/>
         <Route path="/myorders" element={<MyOrders/>}/>
+        <Route path='*' element={<NotFound/>} />
       </Routes>
     </div>
     <Footer/>
