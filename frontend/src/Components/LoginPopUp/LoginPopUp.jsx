@@ -90,7 +90,7 @@ const LoginPopUp = ({ setShowLogin }) => {
         </div>
         <button type="submit">{currState === "Sign Up" ? "Create account" : "Login"}</button>
         <div className="login_popup_condition">
-          <input type="checkbox" required />
+          <input type="checkbox" required className="check" />
           <p>By continuing, I agree to the terms of use & privacy policy</p>
         </div>
         {currState === "Login" ? (
