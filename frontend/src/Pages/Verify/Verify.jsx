@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import './Verify.css'
 import { useContext, useEffect } from 'react';
 import { StoreContext } from '../../Context/StoreContext';
+import Loader from '../../Loader/Loader'
 import axios from 'axios';
 const Verify = () => {
 const [searchParams,setSearchParams]= useSearchParams();
@@ -26,7 +27,7 @@ const response = await axios.post(url+"/api/order/verify",{success,orderId})
   return (
     <div className='verify'>
      {/* <div className="spinner"></div> */}
-    <div className="loader"></div>
+    <Loader/>
      </div>
   )
 }
