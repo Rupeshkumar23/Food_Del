@@ -127,7 +127,7 @@
   width: 20px;
 }
 .nav_profile_dropdown li:hover {
-  color: tomato;
+  color: #ff6347;
 }
 
 @media (max-width: 1050px) {
@@ -179,6 +179,20 @@
 @media (max-width: 794px) {
   .navbar_menu {
     display: none;
+  }
+}
+@media (max-width: 435px) {
+  .navbar_right button {
+    padding: 8px 15px;
+    font-size: 10px;
+  }
+  .navbar_right img {
+    width: 16px;
+  }
+}
+@media (max-width: 397px) {
+  .navbar_right button {
+    padding: 5px 5px;
   }
 }
 

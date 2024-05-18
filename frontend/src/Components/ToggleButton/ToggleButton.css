@@ -55,4 +55,8 @@
   .slider::before{
     left: 2px;
   }
+  .toggle-switch {
+    right: 10px;
+  }
+  
 }
