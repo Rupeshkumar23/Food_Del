@@ -12,3 +12,9 @@
     row-gap: 50px;
     gap: 30px;
 }
+.no_Dish{
+font-weight: bold;
+}
+.dark .no_Dish{
+    color: white;
+}

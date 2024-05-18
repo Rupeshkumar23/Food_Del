@@ -6,12 +6,15 @@ import { StoreContext } from "../../Context/StoreContext";
 import { useContext } from "react";
 import FoodItem from "../FoodItem/FoodItem";
 import Loader from "../../Loader/Loader";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const FoodDisplay = ({ category }) => {
   const { foodList } = useContext(StoreContext);
+  const { theme } = useContext(ThemeContext); 
+  const darkModeClass = theme === "dark" ? "dark" : "";
 
   return (
-    <div className="food_display" id="food_display">
+    <div className={`food_display ${darkModeClass}`} id="food_display">
       <h2>Top dishes near you</h2>
       <div className="food_display_list">
         {foodList ? (
@@ -32,7 +35,7 @@ const FoodDisplay = ({ category }) => {
               return null;
             })
           ) : (
-            <div className="No_dish">No dishes available</div>
+            <div className="no_Dish">No dishes available...</div>
           )
         ) : (
           <Loader />
