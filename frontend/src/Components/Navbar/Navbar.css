@@ -201,6 +201,7 @@
   }
   #mobile{
     display: block;
+    margin-left: 20px;
   }
   #mobile i{
     font-size: 24px;
