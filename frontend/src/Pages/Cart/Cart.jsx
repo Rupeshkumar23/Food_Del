@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const Cart = () => {
-  const { cartItems, food_list,url, removeFromCart,getTotalCartAmount } = useContext(StoreContext);
+  const { cartItems, foodList,url, removeFromCart,getTotalCartAmount } = useContext(StoreContext);
   const { theme } = useContext(ThemeContext);
   const darkModeClass = theme === 'dark' ? 'dark' : '';
   const navigate =useNavigate();
@@ -24,7 +24,7 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item, index) => {
+        {foodList.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
               <>
