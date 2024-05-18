@@ -22,15 +22,6 @@
   cursor: pointer;
   animation: fadeIn 1s;
 }
-.user_W{
-  font-weight: bold;
-  text-align: center;
-  background-color: tomato;
-  padding: 10px;
-  color: white;
-  border-radius: 1rem;
-}
-
 .navbar .logo {
   width: 150px;
 }
@@ -43,6 +34,7 @@
   gap: 20px;
   color: #49557e;
   font-size: 18px;
+  transition: right 0.3s;
 }
 .dark .navbar_menu {
   color: white;
@@ -130,6 +122,11 @@
   color: #ff6347;
 }
 
+#mobile{
+  color: tomato;
+  display: none;
+}
+
 @media (max-width: 1050px) {
   .navbar .logo {
     width: 140px;
@@ -178,7 +175,36 @@
 }
 @media (max-width: 794px) {
   .navbar_menu {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 5rem;
+    position: fixed;
+    top: 90px;
+    right: -300px;
+    width: 300px;
+    min-height: 70vh;
+    background-color: rgba(42, 50, 57, 0.841);
+    color: white;
+    z-index: 20;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    padding: 40px 0 0 10px;
+    border-top-left-radius:1rem;
+    border-bottom-left-radius:1rem;
+  }
+  .navbar .active{
+    border-bottom: 3px solid tomato;
+  }
+ 
+  .navbar_menu.active{
+    right: 0px;
+  }
+  #mobile{
+    display: block;
+  }
+  #mobile i{
+    font-size: 24px;
+    cursor: pointer;
   }
 }
 @media (max-width: 435px) {
@@ -195,6 +221,7 @@
     padding: 5px 5px;
   }
 }
+
 
 /* search */
 .group {

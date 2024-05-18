@@ -17,9 +17,9 @@ const Navbar = ({ setShowLogin }) => {
     theme === "dark" ? assets.shop_cart_dark : assets.shop_cart_light;
   const darkModeClass = theme === "dark" ? "dark" : "";
   const [menu, setMenu] = useState("menu");
+  const [clicked, setClicked] = useState(false);
   const { getTotalCartAmount, token, setToken,user } = useContext(StoreContext);
   const navigate = useNavigate();
-
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const handleScroll = () => {
@@ -44,13 +44,16 @@ const Navbar = ({ setShowLogin }) => {
     setToken("");
     navigate("/");
   };
+  const handleClick = () => {
+    setClicked(!clicked); 
+  };
   return (
     <div className={`navbar ${darkModeClass}`}>
       <Link to="/">
         {" "}
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
-      <ul className="navbar_menu">
+      <ul className={clicked ? "navbar_menu active":"navbar_menu"}>
         <Link
           to="/"
           onClick={() => setMenu("home")}
@@ -125,6 +128,13 @@ const Navbar = ({ setShowLogin }) => {
             </ul>
           </div>
         )}
+      </div>
+      <div id="mobile">
+        <i
+          id="bar"
+          className={clicked ? "fas fa-times" : "fas fa-bars"}
+          onClick={handleClick}
+        ></i>
       </div>
       {/* Scroll Top button */}
       {showScrollTop && (
