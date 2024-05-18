@@ -10,7 +10,7 @@ import { ThemeContext } from "../../Context/ThemeContext";
 
 const FoodDisplay = ({ category }) => {
   const { foodList } = useContext(StoreContext);
-  const { theme } = useContext(ThemeContext); 
+  const { theme } = useContext(ThemeContext);
   const darkModeClass = theme === "dark" ? "dark" : "";
 
   return (
@@ -35,10 +35,10 @@ const FoodDisplay = ({ category }) => {
               return null;
             })
           ) : (
-            <div className="no_Dish">No dishes available...</div>
+            <Loader />
           )
         ) : (
-          <Loader />
+          <div className="no_Dish">No dishes available...</div>
         )}
       </div>
     </div>
