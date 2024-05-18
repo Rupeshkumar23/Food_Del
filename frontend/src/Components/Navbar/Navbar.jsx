@@ -17,7 +17,7 @@ const Navbar = ({ setShowLogin }) => {
     theme === "dark" ? assets.shop_cart_dark : assets.shop_cart_light;
   const darkModeClass = theme === "dark" ? "dark" : "";
   const [menu, setMenu] = useState("menu");
-  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken,user } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -108,6 +108,11 @@ const Navbar = ({ setShowLogin }) => {
           <div className="navbar_profile">
             <img width={27} src={profileIconSrc} alt="profile" />
             <ul className="nav_profile_dropdown">
+              <li onClick={() => navigate("/")}>
+                <img src={assets.user} alt="user_profile" />
+                <p>{user.name}</p>
+              </li>
+              <hr />
               <li onClick={() => navigate("/myorders")}>
                 <img src={assets.bag_icon} alt="bag_icon" />
                 <p>Orders</p>

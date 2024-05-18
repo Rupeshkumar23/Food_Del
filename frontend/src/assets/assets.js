@@ -69,6 +69,7 @@ import vid_1 from './vid_1.mp4'
 import vid_1_c from './vid_1_c.mp4'
 import vid_2 from './vid_2.mp4'
 import page_404 from './404_page.gif'
+import user from './user.png'
 
 
 export const assets = {
@@ -100,7 +101,8 @@ export const assets = {
     vid_1,
     vid_1_c,
     page_404,
-    vid_2
+    vid_2,
+    user
    
 }
 

@@ -22,7 +22,14 @@
   cursor: pointer;
   animation: fadeIn 1s;
 }
-
+.user_W{
+  font-weight: bold;
+  text-align: center;
+  background-color: tomato;
+  padding: 10px;
+  color: white;
+  border-radius: 1rem;
+}
 
 .navbar .logo {
   width: 150px;

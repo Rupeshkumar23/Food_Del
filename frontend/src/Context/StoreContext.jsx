@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
@@ -5,10 +6,11 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  // const url = "http://localhost:4000";
-  const url = "https://food-del-backend-n6zu.onrender.com";
+  const url = "http://localhost:4000";
+  // const url = "https://food-del-backend-n6zu.onrender.com";
   const [token, setToken] = useState("");
   const [food_list, setFood_list] = useState([]);
+  const [user, setUser] = useState(null || "");
   
 
   const addToCart = async (itemId) => {
@@ -60,16 +62,29 @@ const StoreContextProvider = (props) => {
     );
     setCartItems(response.data.cartData);
   };
+  const fetchUserDetails = async (token) => {
+    const response = await axios.get(
+      url + "/api/user/profile",
+      { headers: { token } }
+    );
+    if (response.data.success) {
+      setUser(response.data.user);
+    } else {
+      console.error(response.data.message);
+    }
+  };
+
   useEffect(() => {
     async function loadData() {
       await fetchFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
         await loadCartData(localStorage.getItem("token"));
+        await fetchUserDetails(localStorage.getItem("token"));
       }
     }
     loadData();
-  }, []);
+  }, [fetchUserDetails]);
 
   const contextValue = {
     food_list,
@@ -82,6 +97,7 @@ const StoreContextProvider = (props) => {
     token,
     loadCartData,
     setToken,
+    user
   };
   return (
     <StoreContext.Provider value={contextValue}>
