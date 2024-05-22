@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
 import "./Add.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const Add = ({url}) => {
  
-
+  const { theme } = useContext(ThemeContext); 
+  const darkModeClass = theme === "dark" ? "dark" : "";
   const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
@@ -44,7 +46,7 @@ const Add = ({url}) => {
   };
 
   return (
-    <div className="add">
+    <div className={`add ${darkModeClass}`}>
       <form className="flex_col" onSubmit={onSubmitHandler}>
         <div className="add_img_upload flex_col">
           <p>Upload Image</p>

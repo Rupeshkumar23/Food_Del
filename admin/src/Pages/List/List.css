@@ -10,9 +10,13 @@
 .list_table_format.title{
     background-color: #f9f9f9;
 }
+.dark .list_table_format.title{
+    background: tomato;
+}
 .list_table_format img{
     width: 50px;
 }
+
 @media (max-width:600px) {
         .list_table_format{
             grid-template-columns: 1fr 3fr 1fr;

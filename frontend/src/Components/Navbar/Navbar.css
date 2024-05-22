@@ -197,7 +197,7 @@
     background-color: rgba(17, 25, 40, 0.75);
   }
   .navbar .active{
-    border-bottom: 3px solid tomato;
+    border-bottom: 3px solid rgb(255, 99, 71);
   }
   .menu .active{
     background: #000;

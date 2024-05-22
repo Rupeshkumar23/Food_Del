@@ -7,8 +7,14 @@
 }
 body{
   min-height: 100vh;
+  color: black;
   background-color: #fcfcfc;
 }
+body .dark {
+ color: white;
+ background-color: #222831;
+}
+
 a{
   text-decoration: none;
   color:inherit;

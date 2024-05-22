@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Orders.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { assets } from "../../assets/assets";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
+  const { theme } = useContext(ThemeContext); 
+  const darkModeClass = theme === "dark" ? "dark" : "";
 
   const fetchAllOrders = async () => {
     const response = await axios.get(url + "/api/order/list");
@@ -33,14 +36,14 @@ const Orders = ({ url }) => {
     fetchAllOrders();
   }, []);
   return (
-    <div className="order add">
+    <div className={`order add ${darkModeClass}`}>
       <h3>Order Page</h3>
       <div className="order_list">
         {orders.map((order, index) => (
           <div key={index} className="order_item">
             <img src={assets.parcel_icon} alt="parcel" />
             <div>
-              <p className="order_item_food">
+              <p className="order_item_food dark_P">
                 {order.items.map((item, index) => {
                   if (index === order.items.length - 1) {
                     return item.name + "x" + item.quantity + ".";
@@ -49,12 +52,12 @@ const Orders = ({ url }) => {
                   }
                 })}
               </p>
-              <p className="order_item_name">
+              <p className="order_item_name dark_P">
                 {order.address.firstName + " " + order.address.lastName}
               </p>
               <div className="order_item_address">
-                {order.address.street + ","}
-                <p>
+               <p className="dark_P"> {order.address.street + ","}</p>
+                <p className="dark_P">
                   {order.address.city +
                     "," +
                     order.address.state +
@@ -65,10 +68,10 @@ const Orders = ({ url }) => {
                     ", "}
                 </p>
               </div>
-              <p className="order_item_phone">{order.address.phone}</p>
+              <p className="order_item_phone dark_P">{order.address.phone}</p>
             </div>
-            <p>Items : {order.items.length}</p>
-            <p>${order.amount}</p>
+            <p className="dark_P">Items : {order.items.length}</p>
+            <p className="dark_P">${order.amount}</p>
             <select onChange={(e)=>statusHandler(e,order._id)} value={order.status}>
               <option value="Food Processing">Food Processing</option>
               <option value="Out of delivery">Out of delivery</option>

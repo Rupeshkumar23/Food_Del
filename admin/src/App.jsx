@@ -6,15 +6,19 @@ import Orders from "./Pages/Orders/Orders"
 import List from "./Pages/List/List"
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useContext } from "react"
+import { ThemeContext } from "./Context/ThemeContext"
 
 
 const App = () => {
 
   // const url ="http://localhost:4000";
   const url ="https://food-del-backend-n6zu.onrender.com";
+
+  const { theme } = useContext(ThemeContext);
   
   return (
-    <div>
+    <div className={theme}>
       <ToastContainer/>
       <Navbar/>
       <hr />

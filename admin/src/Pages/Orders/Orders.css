@@ -9,6 +9,12 @@
     font-size: 14px;
     color: #505050;
 }
+.dark .dark_P{
+color: white;
+}
+.order_item_food .dark{
+    color: white;
+}
 .order_item_food, .order_item_name{
     font-weight: 600;
 }

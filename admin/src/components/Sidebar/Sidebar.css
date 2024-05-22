@@ -5,6 +5,9 @@
     border-top: 0;
     font-size: max(1vw,10px);
 }
+.dark .sidebar_option.active{
+    color: #000000;
+}
 .sidebar_options{
     padding-top: 50px;
     padding-left: 20%;
@@ -26,6 +29,7 @@
     background-color: #fff0ed;
     border-color: tomato;
 }
+
 @media (max-width:900px) {
     .sidebar_option p{
         display: none;
