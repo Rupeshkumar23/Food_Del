@@ -8,7 +8,7 @@
     width: max(10%,80px);
 }
 .profile{
-    background:tomato;
+    background:#ff6347;
     border-radius: 50%;
 }
 .dark .profile{
