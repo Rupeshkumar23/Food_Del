@@ -24,7 +24,7 @@ const FoodDisplay = ({ category }) => {
       <h2>Top dishes near you</h2>
       <div className="food_display_list">
         {loading ? (
-          <Loader />
+          <div className="no_Dish">No dishes available...</div>
         ) : foodList && foodList.length > 0 ? (
           foodList.map((item, index) => {
             if (category === "All" || category === item.category) {
@@ -42,7 +42,7 @@ const FoodDisplay = ({ category }) => {
             return null;
           })
         ) : (
-          <div className="no_Dish">No dishes available...</div>
+          <Loader />
         )}
       </div>
     </div>
