@@ -8,23 +8,32 @@ import Loader from "../../Loader/Loader";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const FoodDisplay = ({ category }) => {
-  const { foodList } = useContext(StoreContext);
+  const { foodList,setLoading,loading } = useContext(StoreContext);
   const { theme } = useContext(ThemeContext);
   const darkModeClass = theme === "dark" ? "dark" : "";
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (foodList) {
-      setLoading(false);
-    }
-  }, [foodList]);
+    setLoading(true); 
+    const fetchData = async () => {
+      try {
+        // Fetch data and update foodList in context
+      } catch (error) {
+        console.error("Error fetching food data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [foodList, setLoading]);
 
   return (
     <div className={`food_display ${darkModeClass}`} id="food_display">
       <h2>Top dishes near you</h2>
       <div className="food_display_list">
         {loading ? (
-          <div className="no_Dish">No dishes available...</div>
+          Array.from({ length: 10 }).map((_, index) => (
+            <FoodItem key={index} isLoading={true} />
+          ))
         ) : foodList && foodList.length > 0 ? (
           foodList.map((item, index) => {
             if (category === "All" || category === item.category) {
@@ -36,13 +45,14 @@ const FoodDisplay = ({ category }) => {
                   description={item.description}
                   price={item.price}
                   image={item.image}
+                  isLoading={false}
                 />
               );
             }
             return null;
           })
         ) : (
-          <Loader />
+          <div className="no_Dish">No dishes available...</div>
         )}
       </div>
     </div>

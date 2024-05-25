@@ -9,6 +9,7 @@ const StoreContextProvider = (props) => {
   // const url = "http://localhost:4000";
   const url = "https://food-del-backend-n6zu.onrender.com";
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false); 
   const [foodList, setFoodList] = useState([]);
   const [user, setUser] = useState(null || "");
   const storedToken = localStorage.getItem("token");
@@ -64,11 +65,14 @@ const StoreContextProvider = (props) => {
   
 
   const fetchFoodList = async () => {
+    setLoading(true); 
     try {
       const response = await axios.get(`${url}/api/food/list`);
       setFoodList(response.data.data);
     } catch (error) {
       console.error("Error fetching food list:", error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -124,7 +128,9 @@ const StoreContextProvider = (props) => {
     token,
     loadCartData,
     setToken,
-    user
+    user,
+    loading,
+    setLoading
   };
 
   return (

@@ -5,15 +5,19 @@ import "./FoodItem.css";
 import { StoreContext } from "../../Context/StoreContext";
 import { ThemeContext } from "../../Context/ThemeContext";
 
-const FoodItem = ({ id, name, price, description, image }) => {
-  const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
+const FoodItem = ({ id, name, price, description, image, isLoading }) => {
+  const { cartItems, addToCart, removeFromCart, url, } = useContext(StoreContext);
   const { theme } = useContext(ThemeContext); 
   const darkModeClass = theme === 'dark' ? 'dark' : '';
   return (
     <div className={`food_item ${darkModeClass}`}>
       <div className="food_item_img_container">
-        <img className="food_item_image" src={url+"/images/"+image} alt="food_item_image" />
-        {!cartItems[id] ? (
+        {isLoading ? (
+          <div className="skeleton skeleton-image"></div>
+        ) : (
+          <img className="food_item_image" src={url+"/images/"+image} alt="food_item_image" />
+        )}
+        {!isLoading && (!cartItems[id] ? (
           <img
             className="add"
             onClick={() => addToCart(id)}
@@ -34,15 +38,25 @@ const FoodItem = ({ id, name, price, description, image }) => {
               onClick={() => addToCart(id)}
             />
           </div>
-        )}
+        ))}
       </div>
       <div className="food_item_info">
         <div className="food_item_name_rating">
-          <p>{name}</p>
-          <img src={assets.rating_starts} alt="rating" />
+          {isLoading ? (
+            <div className="skeleton skeleton-text skeleton-name"></div>
+          ) : (
+            <>
+              <p>{name}</p>
+              <img src={assets.rating_starts} alt="rating" />
+            </>
+          )}
         </div>
-        <p className="food_item_desc">{description}</p>
-        <p className="food_item_price">${price}</p>
+        <p className="food_item_desc">
+          {isLoading ? <div className="skeleton skeleton-text skeleton-desc"></div> : description}
+        </p>
+        <p className="food_item_price">
+          {isLoading ? <div className="skeleton skeleton-text skeleton-price"></div> : `$${price}`}
+        </p>
       </div>
     </div>
   );
