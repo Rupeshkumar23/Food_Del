@@ -7,21 +7,30 @@ import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
 import { assets } from "../../assets/assets";
 import { ThemeContext } from "../../Context/ThemeContext";
+import Loader from "../../Loader/Loader";
 
 const MyOrders = () => {
-  const { url, token } = useContext(StoreContext);
+  const { url, token, loading, setLoading } = useContext(StoreContext);
   const [data, setData] = useState([]);
   const { theme } = useContext(ThemeContext);
   const darkModeClass = theme === 'dark' ? 'dark' : '';
 
   const fetchOrders = async () => {
-    const response = await axios.post(
-      url + "/api/order/userorders",
-      {},
-      { headers: { token } }
-    );
-    setData(response.data.data);
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        url + "/api/order/userorders",
+        {},
+        { headers: { token } }
+      );
+      setData(response.data.data);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   useEffect(() => {
     if (token) {
       fetchOrders();
@@ -31,9 +40,10 @@ const MyOrders = () => {
   return (
     <div className={`my_orders ${darkModeClass}`}>
       <h2>My Orders</h2>
+      {loading && <Loader />}
       <div className="container">
-        {data.map((order, index) => {
-          return (
+        {data.length > 0 ? (
+          data.map((order, index) => (
             <div key={index} className="my_orders_order">
               <img src={assets.parcel_icon} alt="parcel" />
               <p>
@@ -41,7 +51,7 @@ const MyOrders = () => {
                   if (index === order.items.length - 1) {
                     return item.name + " x " + item.quantity + ".";
                   } else {
-                    return item.name + "x" + item.quantity + ",";
+                    return item.name + " x " + item.quantity + ", ";
                   }
                 })}
               </p>
@@ -53,8 +63,10 @@ const MyOrders = () => {
               </p>
               <button onClick={fetchOrders}>Track Order</button>
             </div>
-          );
-        })}
+          ))
+        ) : (
+          !loading && <p>No orders found</p>
+        )}
       </div>
     </div>
   );
