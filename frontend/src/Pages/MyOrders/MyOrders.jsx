@@ -66,7 +66,7 @@ const MyOrders = () => {
           ))
         ) : (
           !loading && <p>No orders found</p>
-        )}
+      )}
       </div>
     </div>
   );
