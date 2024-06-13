@@ -4,6 +4,8 @@ import { assets } from "../../assets/assets";
 import "./FoodItem.css";
 import { StoreContext } from "../../Context/StoreContext";
 import { ThemeContext } from "../../Context/ThemeContext";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const FoodItem = ({ id, name, price, description, image, isLoading }) => {
   const { cartItems, addToCart, removeFromCart, url, } = useContext(StoreContext);
@@ -15,7 +17,7 @@ const FoodItem = ({ id, name, price, description, image, isLoading }) => {
         {isLoading ? (
           <div className="skeleton skeleton-image"></div>
         ) : (
-          <img className="food_item_image" src={url+"/images/"+image} alt="food_item_image" />
+          <LazyLoadImage  effect='blur' className="food_item_image" src={url+"/images/"+image} alt="food_item_image" />
         )}
         {!isLoading && (!cartItems[id] ? (
           <img
