@@ -10,7 +10,7 @@ import ToggleButton from "../ToggleButton/ToggleButton";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const Navbar = ({ setShowLogin }) => {
-  const { theme } = useContext(ThemeContext); 
+  const { theme } = useContext(ThemeContext);
   const profileIconSrc =
     theme === "dark" ? assets.profile_icon_dark : assets.profile_icon_light;
   const shopCartIconSrc =
@@ -18,7 +18,7 @@ const Navbar = ({ setShowLogin }) => {
   const darkModeClass = theme === "dark" ? "dark" : "";
   const [menu, setMenu] = useState("menu");
   const [clicked, setClicked] = useState(false);
-  const { getTotalCartAmount, token, setToken,user } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken, user, loading } = useContext(StoreContext);
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -45,7 +45,7 @@ const Navbar = ({ setShowLogin }) => {
     navigate("/");
   };
   const handleClick = () => {
-    setClicked(!clicked); 
+    setClicked(!clicked);
   };
   return (
     <div className={`navbar ${darkModeClass}`}>
@@ -53,7 +53,7 @@ const Navbar = ({ setShowLogin }) => {
         {" "}
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
-      <ul className={clicked ? "navbar_menu active":"navbar_menu"}>
+      <ul className={clicked ? "navbar_menu active" : "navbar_menu"}>
         <Link
           to="/"
           onClick={() => setMenu("home")}
@@ -92,7 +92,7 @@ const Navbar = ({ setShowLogin }) => {
           </svg>
           <input className="input" type="search" placeholder="Search" />
         </div>
-        <ToggleButton/>
+        <ToggleButton />
         <div className="navbar_search_icon">
           <Link to="/cart">
             {" "}
@@ -105,7 +105,15 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        {!token ? (
+        {!token && loading ? (
+
+          <div className="load">
+            <li className="ball"></li>
+            <li className="ball"></li>
+            <li className="ball"></li>
+          </div>
+
+        ) : !token ? (
           <button onClick={() => setShowLogin(true)}>Sign in</button>
         ) : (
           <div className="navbar_profile">
