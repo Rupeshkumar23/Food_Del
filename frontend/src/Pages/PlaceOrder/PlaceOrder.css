@@ -40,3 +40,103 @@
     }
     
 }
+
+.payment_method_selection {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.payment_method_selection h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.payment_options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.payment_option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.payment_option:hover {
+  background-color: #f0f0f0;
+}
+.dark .payment_option{
+  color: black;
+}
+
+.payment_option input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  outline: none;
+  transition: border-color 0.2s;
+  position: relative;
+}
+
+.payment_option input[type="radio"]:checked {
+  border-color: #ff4d4d;
+}
+
+.payment_option input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff4d4d;
+}
+
+.payment_option label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cart_total button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cart_total button:hover {
+  background-color: #ff3333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.2);
+}
+
+.cart_total button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

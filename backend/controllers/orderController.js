@@ -14,7 +14,22 @@ const placeOrder = async (req, res) => {
       items: req.body.items,
       amount: req.body.amount,
       address: req.body.address,
+      paymentMethod: req.body.paymentMethod,
     });
+    
+    // If payment method is COD, mark payment as true immediately
+    if (req.body.paymentMethod === "COD") {
+      newOrder.payment = true;
+      await newOrder.save();
+      await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
+      return res.json({ 
+        success: true, 
+        message: "Order placed successfully with Cash on Delivery",
+        orderId: newOrder._id 
+      });
+    }
+    
+    // For online payment
     await newOrder.save();
     await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 

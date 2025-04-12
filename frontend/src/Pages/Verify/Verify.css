@@ -1,19 +1,111 @@
-.verify{
-    min-height: 60vh;
-    display: grid;
+.verify {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-/* .verify .spinner{
-    width: 100px;
-    height: 100px;
-    place-self: center;
-    border: 5px solid #bdbdbd;
-    border-top-color:tomato;
-    border-radius: 50%;
-    animation: rotate 1s infinite;
+
+.verify_success,
+.verify_failed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
 }
-@keyframes rotate {
-    100%{
-        transform:rotate(360deg)
+
+.verify_success {
+  background-color: #f5fff7;
+  border: 1px solid #e0f2e9;
 }
-    
-} */
+
+.verify_failed {
+  background-color: #fff5f5;
+  border: 1px solid #f2e0e0;
+}
+
+.verify_icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.verify_icon.success {
+  background-color: #e8f5e9;
+  border: 2px solid #66bb6a;
+}
+
+.verify_icon.success::before,
+.verify_icon.success::after {
+  content: '';
+  position: absolute;
+  background-color: #4caf50;
+}
+
+.verify_icon.success::before {
+  width: 16px;
+  height: 32px;
+  transform: rotate(45deg);
+  top: 34px;
+  left: 45px;
+}
+
+.verify_icon.success::after {
+  width: 16px;
+  height: 52px;
+  transform: rotate(-45deg);
+  top: 16px;
+  left: 28px;
+}
+
+.verify_icon.failed {
+  background-color: #ffebee;
+  border: 2px solid #e57373;
+}
+
+.verify_icon.failed::before,
+.verify_icon.failed::after {
+  content: '';
+  position: absolute;
+  background-color: #f44336;
+  width: 16px;
+  height: 50px;
+  top: 15px;
+  left: 32px;
+}
+
+.verify_icon.failed::before {
+  transform: rotate(45deg);
+}
+
+.verify_icon.failed::after {
+  transform: rotate(-45deg);
+}
+
+.verify_success h2,
+.verify_failed h2 {
+  margin: 15px 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.verify_success h2 {
+  color: #2e7d32;
+}
+
+.verify_failed h2 {
+  color: #c62828;
+}
+
+.verify_success p,
+.verify_failed p {
+  color: #666;
+  margin-top: 8px;
+  font-size: 16px;
+}

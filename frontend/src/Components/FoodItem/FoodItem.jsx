@@ -53,12 +53,16 @@ const FoodItem = ({ id, name, price, description, image, isLoading }) => {
             </>
           )}
         </div>
-        <p className="food_item_desc">
-          {isLoading ? <div className="skeleton skeleton-text skeleton-desc"></div> : description}
-        </p>
-        <p className="food_item_price">
-          {isLoading ? <div className="skeleton skeleton-text skeleton-price"></div> : `$${price}`}
-        </p>
+        {isLoading ? (
+          <div className="skeleton skeleton-text skeleton-desc"></div>
+        ) : (
+          <p className="food_item_desc">{description}</p>
+        )}
+        {isLoading ? (
+          <div className="skeleton skeleton-text skeleton-price"></div>
+        ) : (
+          <p className="food_item_price">${price}</p>
+        )}
       </div>
     </div>
   );

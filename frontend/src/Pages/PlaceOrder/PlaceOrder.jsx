@@ -3,10 +3,13 @@ import "./PlaceOrder.css";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, foodList, cartItems, url } =
     useContext(StoreContext);
+  const [paymentMethod, setPaymentMethod] = useState("ONLINE");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [data, setData] = useState({
     firstName: "",
@@ -25,8 +28,12 @@ const PlaceOrder = () => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
+  const navigate = useNavigate();
+
   const placeOrder = async (e) => {
     e.preventDefault();
+    setIsProcessing(true);
+    
     let orderItems = [];
     foodList.map((item) => {
       if (cartItems[item._id] > 0) {
@@ -35,22 +42,40 @@ const PlaceOrder = () => {
         orderItems.push(itemInfo);
       }
     });
+    
     let orderData = {
       address: data,
       items: orderItems,
       amount: getTotalCartAmount() + 2,
+      paymentMethod: paymentMethod,
     };
-    let response = await axios.post(url + "/api/order/place", orderData, {
-      headers: { token },
-    });
-    if (response.data.success) {
-      const { session_url } = response.data;
-      window.location.replace(session_url);
-    } else {
-      alert("Error in placing the Order");
+    
+    try {
+      let response = await axios.post(url + "/api/order/place", orderData, {
+        headers: { token },
+      });
+      
+      if (response.data.success) {
+        if (paymentMethod === "COD") {
+          // For COD, navigate to success page directly
+          toast.success("Order placed successfully with Cash on Delivery!");
+          navigate(`/verify?success=true&orderId=${response.data.orderId}`);
+        } else {
+          // For online payment, redirect to payment gateway
+          const { session_url } = response.data;
+          window.location.replace(session_url);
+        }
+      } else {
+        toast.error("Error in placing the Order");
+        setIsProcessing(false);
+      }
+    } catch (error) {
+      console.error("Order placement error:", error);
+      toast.error("Failed to place order. Please try again.");
+      setIsProcessing(false);
     }
   };
-  const navigate =useNavigate();
+
   useEffect(()=>{
     if(!token){
       navigate("/cart")
@@ -164,7 +189,38 @@ const PlaceOrder = () => {
               </b>
             </div>
           </div>
-          <button type="submit">PROCEED TO PAYMENT</button>
+          
+          <div className="payment_method_selection">
+            <h3>Select Payment Method</h3>
+            <div className="payment_options">
+              <div className="payment_option">
+                <input 
+                  type="radio" 
+                  id="online" 
+                  name="paymentMethod" 
+                  value="ONLINE"
+                  checked={paymentMethod === "ONLINE"}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                />
+                <label htmlFor="online">Online Payment</label>
+              </div>
+              <div className="payment_option">
+                <input 
+                  type="radio" 
+                  id="cod" 
+                  name="paymentMethod" 
+                  value="COD"
+                  checked={paymentMethod === "COD"}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                />
+                <label htmlFor="cod">Cash on Delivery</label>
+              </div>
+            </div>
+          </div>
+          
+          <button type="submit" disabled={isProcessing}>
+            {isProcessing ? "PROCESSING..." : paymentMethod === "ONLINE" ? "PROCEED TO PAYMENT" : "PLACE ORDER"}
+          </button>
         </div>
       </div>
     </form>

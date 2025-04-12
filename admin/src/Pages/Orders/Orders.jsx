@@ -29,12 +29,12 @@ const Orders = ({ url }) => {
    if(response.data.success){
     await fetchAllOrders();
    }
-
-
   }
+  
   useEffect(() => {
     fetchAllOrders();
   }, []);
+  
   return (
     <div className={`order add ${darkModeClass}`}>
       <h3>Order Page</h3>
@@ -70,9 +70,19 @@ const Orders = ({ url }) => {
               </div>
               <p className="order_item_phone dark_P">{order.address.phone}</p>
             </div>
-            <p className="dark_P">Items : {order.items.length}</p>
-            <p className="dark_P">${order.amount}</p>
-            <select onChange={(e)=>statusHandler(e,order._id)} value={order.status}>
+            <div className="order_details">
+              <p className="dark_P">Items: {order.items.length}</p>
+              <p className="dark_P">Amount: ${order.amount}</p>
+              <div className="payment_badge">
+                <span className={`payment_method ${order.paymentMethod}`}>
+                  {order.paymentMethod}
+                </span>
+                <span className={`payment_status ${order.payment ? "paid" : "unpaid"}`}>
+                  {order.payment ? "PAID" : "UNPAID"}
+                </span>
+              </div>
+            </div>
+            <select onChange={(e)=>statusHandler(e,order._id)} value={order.status} className="status_dropdown">
               <option value="Food Processing">Food Processing</option>
               <option value="Out of delivery">Out of delivery</option>
               <option value="Delivered">Delivered</option>
