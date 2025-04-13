@@ -9,10 +9,10 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Verify = () => {
-  const [searchParams,setSearchParams]= useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
-  const {url} = useContext(StoreContext);
+  const { url, setCartItems } = useContext(StoreContext);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   
@@ -24,14 +24,14 @@ const Verify = () => {
       });
       
       if(response.data.success) {
-        // For successful payments/orders
+        setCartItems({});
+        
         setIsLoading(false);
         toast.success("Your order was placed successfully!");
         setTimeout(() => {
           navigate("/myorders");
         }, 2000);
       } else {
-        // For failed payments/orders
         setIsLoading(false);
         toast.error("Your order could not be completed");
         setTimeout(() => {
