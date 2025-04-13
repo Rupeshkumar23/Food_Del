@@ -23,6 +23,7 @@ const Verify = () => {
         orderId
       });
       
+      
       if(response.data.success) {
         setCartItems({});
         
