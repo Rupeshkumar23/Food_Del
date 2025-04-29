@@ -16,14 +16,18 @@
 .dark .no_id {
   color: black;
 }
+
+
 .food_item_image {
   width: 100%;
-  border-radius: 15px 15px 0px 0px;
+  transition: transform 0.3s ease !important; 
 }
-.food_item_image:hover {
-  transform: scale(1.1);
-  transition: 0.5s;
+
+.food_item_img_container:hover .food_item_image {
+  transform: scale(1.05);          
+  cursor: pointer;
 }
+
 .food_item_info {
   padding: 20px;
 }
@@ -55,6 +59,8 @@
 }
 .food_item_img_container {
   position: relative;
+  overflow: hidden;
+  max-height: 200px;
 }
 .food_item_img_container .add {
   width: 35px;
