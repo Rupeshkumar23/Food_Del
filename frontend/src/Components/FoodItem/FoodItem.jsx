@@ -61,7 +61,7 @@ const FoodItem = ({ id, name, price, description, image, isLoading }) => {
         {isLoading ? (
           <div className="skeleton skeleton-text skeleton-price"></div>
         ) : (
-          <p className="food_item_price">${price}</p>
+          <p className="food_item_price">₹{price}</p>
         )}
       </div>
     </div>
