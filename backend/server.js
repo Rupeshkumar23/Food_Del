@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors"
+import path from "path"
 import { connectDB } from "./config/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
@@ -27,7 +28,7 @@ connectDB();
 
 // api endpoints
 app.use("/api/food",foodRouter);
-app.use("/images",express.static('uploads'));
+app.use("/images",express.static(path.join(process.cwd(), 'uploads')));
 app.use("/api/user",userRouter);
 app.use("/api/cart",cartRouter);
 app.use("/api/order",orderRouter);

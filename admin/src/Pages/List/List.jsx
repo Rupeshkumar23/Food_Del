@@ -12,6 +12,15 @@ const List = ({ url }) => {
   const { theme } = useContext(ThemeContext); 
   const darkModeClass = theme === "dark" ? "dark" : "";
 
+  const getImageUrl = (image) => {
+    if (!image) return undefined;
+    if (image.startsWith("http")) {
+      const filename = image.split("/images/").pop();
+      return filename ? `${url}/images/${filename}` : image;
+    }
+    return `${url}/images/${image}`;
+  };
+
   const fetchList = async () => {
     setLoading(true); 
     try {
@@ -62,9 +71,7 @@ const List = ({ url }) => {
           <Loader/> 
         ) : (
           List.map((item, index) => {
-            const itemImageUrl = item.image?.startsWith("http")
-              ? item.image
-              : `${url}/images/${item.image}`;
+            const itemImageUrl = getImageUrl(item.image);
             return (
               <div key={index} className='list_table_format'>
                 <img src={itemImageUrl} alt="img" />

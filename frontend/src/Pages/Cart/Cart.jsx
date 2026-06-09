@@ -6,10 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../Context/ThemeContext";
 
 const Cart = () => {
-  const { cartItems, foodList,url, removeFromCart,getTotalCartAmount } = useContext(StoreContext);
+  const { cartItems, foodList, url, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
   const { theme } = useContext(ThemeContext);
   const darkModeClass = theme === 'dark' ? 'dark' : '';
-  const navigate =useNavigate();
+  const navigate = useNavigate();
+
+  const getImageUrl = (image) => {
+    if (!image) return undefined;
+    if (image.startsWith("http")) {
+      const filename = image.split("/images/").pop();
+      return filename ? `${url}/images/${filename}` : image;
+    }
+    return `${url}/images/${image}`;
+  };
 
   return (
     <div className={`cart ${darkModeClass}`}>
@@ -26,9 +35,7 @@ const Cart = () => {
         <hr />
         {foodList.map((item, index) => {
           if (cartItems[item._id] > 0) {
-            const itemImageUrl = item.image?.startsWith("http")
-              ? item.image
-              : `${url}/images/${item.image}`;
+            const itemImageUrl = getImageUrl(item.image);
             return (
               <>
                 <div key={index} className="cart_items_title cart_items_item">

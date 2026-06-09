@@ -10,14 +10,13 @@ const addFood = async (req, res) => {
     }
 
     const imageFilename = req.file.filename;
-    const imageUrl = `${req.protocol}://${req.get("host")}/images/${imageFilename}`;
 
     const food = new foodModel({
       name: req.body.name,
       description: req.body.description,
       price: req.body.price,
       category: req.body.category,
-      image: imageUrl,
+      image: imageFilename,
     });
     await food.save();
     res.json({ success: true, message: "Food Added" });

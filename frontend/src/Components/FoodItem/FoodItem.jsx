@@ -11,11 +11,17 @@ const FoodItem = ({ id, name, price, description, image, isLoading }) => {
   const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
   const { theme } = useContext(ThemeContext); 
   const darkModeClass = theme === 'dark' ? 'dark' : '';
-  const imageUrl = image
-    ? image.startsWith("http")
-      ? image
-      : `${url}/images/${image}`
-    : undefined;
+
+  const getImageUrl = (image) => {
+    if (!image) return undefined;
+    if (image.startsWith("http")) {
+      const filename = image.split("/images/").pop();
+      return filename ? `${url}/images/${filename}` : image;
+    }
+    return `${url}/images/${image}`;
+  };
+
+  const imageUrl = getImageUrl(image);
 
   return (
     <div className={`food_item ${darkModeClass}`}>
