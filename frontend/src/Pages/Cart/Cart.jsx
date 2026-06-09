@@ -26,14 +26,17 @@ const Cart = () => {
         <hr />
         {foodList.map((item, index) => {
           if (cartItems[item._id] > 0) {
+            const itemImageUrl = item.image?.startsWith("http")
+              ? item.image
+              : `${url}/images/${item.image}`;
             return (
               <>
                 <div key={index} className="cart_items_title cart_items_item">
-                  <img src={url+"/images/"+item.image} alt="img" />
+                  <img src={itemImageUrl} alt="img" />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>₹{item.price}</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
+                  <p>₹{item.price * cartItems[item._id]}</p>
                   <p onClick={() => removeFromCart(item._id)} className="cross">
                     x
                   </p>
@@ -50,17 +53,17 @@ const Cart = () => {
           <div>
             <div className="cart_total_details">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>₹{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart_total_details">
               <p>Delivery Fee</p>
-              <p>${getTotalCartAmount()===0?0:2}</p>
+              <p>₹{getTotalCartAmount()===0?0:2}</p>
             </div>
             <hr />
             <div className="cart_total_details">
               <b>Total</b>
-              <b>${ getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
+              <b>₹{ getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
             </div>
           </div>
           <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>

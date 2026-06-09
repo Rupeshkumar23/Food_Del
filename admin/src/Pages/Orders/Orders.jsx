@@ -72,7 +72,7 @@ const Orders = ({ url }) => {
             </div>
             <div className="order_details">
               <p className="dark_P">Items: {order.items.length}</p>
-              <p className="dark_P">Amount: ${order.amount}</p>
+              <p className="dark_P">Amount: ₹{order.amount}</p>
               <div className="payment_badge">
                 <span className={`payment_method ${order.paymentMethod}`}>
                   {order.paymentMethod}

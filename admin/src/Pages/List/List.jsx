@@ -61,15 +61,20 @@ const List = ({ url }) => {
         {loading ? (
           <Loader/> 
         ) : (
-          List.map((item, index) => (
-            <div key={index} className='list_table_format'>
-              <img src={`${url}/images/${item.image}`} alt="img" />
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>₹{item.price}</p>
-              <p onClick={() => { removeFood(item._id) }} className='cursor'>x</p>
-            </div>
-          ))
+          List.map((item, index) => {
+            const itemImageUrl = item.image?.startsWith("http")
+              ? item.image
+              : `${url}/images/${item.image}`;
+            return (
+              <div key={index} className='list_table_format'>
+                <img src={itemImageUrl} alt="img" />
+                <p>{item.name}</p>
+                <p>{item.category}</p>
+                <p>₹{item.price}</p>
+                <p onClick={() => { removeFood(item._id) }} className='cursor'>x</p>
+              </div>
+            );
+          })
         )}
       </div>
     </div>

@@ -8,16 +8,22 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const FoodItem = ({ id, name, price, description, image, isLoading }) => {
-  const { cartItems, addToCart, removeFromCart, url, } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
   const { theme } = useContext(ThemeContext); 
   const darkModeClass = theme === 'dark' ? 'dark' : '';
+  const imageUrl = image
+    ? image.startsWith("http")
+      ? image
+      : `${url}/images/${image}`
+    : undefined;
+
   return (
     <div className={`food_item ${darkModeClass}`}>
       <div className="food_item_img_container">
         {isLoading ? (
           <div className="skeleton skeleton-image"></div>
         ) : (
-          <LazyLoadImage  effect='blur' className="food_item_image" src={url+"/images/"+image} alt="food_item_image" />
+          <LazyLoadImage effect='blur' className="food_item_image" src={imageUrl} alt="food_item_image" />
         )}
         {!isLoading && (!cartItems[id] ? (
           <img
