@@ -13,11 +13,10 @@ const Cart = () => {
 
   const getImageUrl = (image) => {
     if (!image) return undefined;
-    if (image.startsWith("http")) {
-      const filename = image.split("/images/").pop();
-      return filename ? `${url}/images/${filename}` : image;
-    }
-    return `${url}/images/${image}`;
+    if (image.startsWith("http://") || image.startsWith("https://")) return image;
+    if (image.startsWith("/uploads/") || image.startsWith("/images/")) return `${url}${image}`;
+    if (image.startsWith("uploads/") || image.startsWith("images/")) return `${url}/${image}`;
+    return `${url}/uploads/${image}`;
   };
 
   return (

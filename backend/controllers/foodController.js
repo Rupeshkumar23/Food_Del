@@ -1,5 +1,10 @@
 import foodModel from "../models/foodModel.js";
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // add food item
 
@@ -43,10 +48,15 @@ const removeFood = async (req, res) => {
   try {
     const food = await foodModel.findById(req.body.id);
     if (food) {
-      const filename = food.image.startsWith("http")
-        ? food.image.split("/images/").pop()
-        : food.image;
-      fs.unlink(`uploads/${filename}`, () => {});
+      let filename = food.image;
+      if (filename.startsWith("http")) {
+        const matches = filename.match(/(?:\/images\/|\/uploads\/)([^\/]+)$/);
+        filename = matches ? matches[1] : filename;
+      } else if (filename.startsWith("/images/") || filename.startsWith("/uploads/")) {
+        filename = filename.split("/").pop();
+      }
+      const filePath = path.join(__dirname, "..", "uploads", filename);
+      fs.unlink(filePath, () => {});
     }
     await foodModel.findByIdAndDelete(req.body.id);
     res.json({ success: true, message: "Food Removed" });
