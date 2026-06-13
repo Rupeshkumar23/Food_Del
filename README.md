@@ -92,6 +92,9 @@ Create a .env file in the backend directory with the following:
 - `MONGO_URI`=your-mongodb-connection-string
 - `JWT_SECRET`=your-jwt-secret
 - `STRIPE_SECRET_KEY`=your-stripe-secret-key
+- `CLOUDINARY_CLOUD_NAME`=your-cloudinary-cloud-name
+- `CLOUDINARY_API_KEY`=your-cloudinary-api-key
+- `CLOUDINARY_API_SECRET`=your-cloudinary-api-secret
 
 ## 4.Start the development servers:
 
