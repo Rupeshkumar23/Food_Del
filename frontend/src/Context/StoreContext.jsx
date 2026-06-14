@@ -14,6 +14,22 @@ const StoreContextProvider = (props) => {
   const [foodList, setFoodList] = useState([]);
   const [user, setUser] = useState(null);
 
+  const clearAuthState = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    setUser(null);
+    setCartItems({});
+  };
+
+  const handleAuthError = (error) => {
+    const status = error?.response?.status;
+    if (status === 401 || status === 404) {
+      clearAuthState();
+      return true;
+    }
+    return false;
+  };
+
   const addToCart = async (itemId) => {
     try {
       const newCartItems = { ...cartItems };
@@ -28,7 +44,9 @@ const StoreContextProvider = (props) => {
         );
       }
     } catch (error) {
-      console.error("Error adding item to cart:", error);
+      if (!handleAuthError(error)) {
+        console.error("Error adding item to cart:", error);
+      }
     }
   };
 
@@ -88,9 +106,19 @@ const StoreContextProvider = (props) => {
         {},
         { headers: { token } }
       );
-      setCartItems(response.data.cartData || {});
+      if (response.data.success) {
+        setCartItems(response.data.cartData || {});
+      } else {
+        if (response.data.message === "User not found") {
+          clearAuthState();
+        } else {
+          console.error("Error loading cart data:", response.data.message);
+        }
+      }
     } catch (error) {
-      console.error("Error loading cart data:", error);
+      if (!handleAuthError(error)) {
+        console.error("Error loading cart data:", error);
+      }
     }
   };
 
@@ -103,10 +131,16 @@ const StoreContextProvider = (props) => {
       if (response.data.success) {
         setUser(response.data.user);
       } else {
-        console.error(response.data.message);
+        if (response.data.message === "User not found") {
+          clearAuthState();
+        } else {
+          console.error(response.data.message);
+        }
       }
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      if (!handleAuthError(error)) {
+        console.error("Error fetching user details:", error);
+      }
     }
   };
 
