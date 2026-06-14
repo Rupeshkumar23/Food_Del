@@ -9,26 +9,11 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   // const url = "http://localhost:4000";
   const url = "https://food-del-backend-n6zu.onrender.com";
-  const [token, setToken] = useState(() => localStorage.getItem("token") || "");
-  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false); 
   const [foodList, setFoodList] = useState([]);
-  const [user, setUser] = useState(null);
-
-  const clearAuthState = () => {
-    localStorage.removeItem("token");
-    setToken("");
-    setUser(null);
-    setCartItems({});
-  };
-
-  const handleAuthError = (error) => {
-    const status = error?.response?.status;
-    if (status === 401 || status === 404) {
-      clearAuthState();
-      return true;
-    }
-    return false;
-  };
+  const [user, setUser] = useState(null || "");
+  const storedToken = localStorage.getItem("token");
 
   const addToCart = async (itemId) => {
     try {
@@ -44,21 +29,14 @@ const StoreContextProvider = (props) => {
         );
       }
     } catch (error) {
-      if (!handleAuthError(error)) {
-        console.error("Error adding item to cart:", error);
-      }
+      console.error("Error adding item to cart:", error);
     }
   };
 
   const removeFromCart = async (itemId) => {
     try {
       const newCartItems = { ...cartItems };
-      const currentQuantity = newCartItems[itemId] || 0;
-      if (currentQuantity > 1) {
-        newCartItems[itemId] = currentQuantity - 1;
-      } else {
-        delete newCartItems[itemId];
-      }
+      newCartItems[itemId] = newCartItems[itemId] - 1;
       setCartItems(newCartItems);
 
       if (token) {
@@ -106,19 +84,9 @@ const StoreContextProvider = (props) => {
         {},
         { headers: { token } }
       );
-      if (response.data.success) {
-        setCartItems(response.data.cartData || {});
-      } else {
-        if (response.data.message === "User not found") {
-          clearAuthState();
-        } else {
-          console.error("Error loading cart data:", response.data.message);
-        }
-      }
+      setCartItems(response.data.cartData);
     } catch (error) {
-      if (!handleAuthError(error)) {
-        console.error("Error loading cart data:", error);
-      }
+      console.error("Error loading cart data:", error);
     }
   };
 
@@ -131,29 +99,24 @@ const StoreContextProvider = (props) => {
       if (response.data.success) {
         setUser(response.data.user);
       } else {
-        if (response.data.message === "User not found") {
-          clearAuthState();
-        } else {
-          console.error(response.data.message);
-        }
+        console.error(response.data.message);
       }
     } catch (error) {
-      if (!handleAuthError(error)) {
-        console.error("Error fetching user details:", error);
-      }
+      console.error("Error fetching user details:", error);
     }
   };
 
   useEffect(() => {
     async function loadData() {
       await fetchFoodList();
-      if (token) {
-        await loadCartData(token);
-        await fetchUserDetails(token);
+      if (storedToken) {
+        setToken(storedToken);
+        await loadCartData(storedToken);
+        await fetchUserDetails(storedToken);
       }
     }
     loadData();
-  }, [token]);
+  }, [storedToken]);
 
   const contextValue = {
     foodList,

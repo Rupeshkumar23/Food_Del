@@ -4,7 +4,6 @@ import "./LoginPopUp.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { ThemeContext } from "../../Context/ThemeContext";
 const LoginPopUp = ({ setShowLogin }) => {
   
@@ -37,16 +36,16 @@ const LoginPopUp = ({ setShowLogin }) => {
       newUrl += "/api/user/register"
     }
     const response = await axios.post(newUrl,data);
-    if (response.data.success) {
+    if(response.data.success){
       setToken(response.data.token);
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token",response.data.token)
       setShowLogin(false);
-      toast.success("Logged in successfully");
-    } else {
-      toast.error(response.data.message || "Unable to login");
+    }
+    else{
+      alert(response.data.message);
     }
 
-  };
+  }
 
   return (
     <div className={`login_popup ${darkModeClass}`}>

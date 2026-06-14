@@ -10,8 +10,8 @@ const authMiddleware = async (req, res, next) => {
     req.body.userId = decodedToken.id;
     next();
   } catch (error) {
-    console.error("Error in auth middleware:", error);
-    res.status(401).json({ success: false, message: "Error in authorization" });
+    console.log("Error in Auth Middleware", error);
+    res.json({ success: false, message: "Error in authorization" });
   }
 };
 

@@ -34,21 +34,20 @@ const PlaceOrder = () => {
     e.preventDefault();
     setIsProcessing(true);
     
-    const orderItems = foodList
-      .filter((item) => cartItems[item._id] > 0)
-      .map((item) => ({
-        _id: item._id,
-        name: item.name,
-        price: item.price,
-        quantity: cartItems[item._id],
-      }));
+    let orderItems = [];
+    foodList.map((item) => {
+      if (cartItems[item._id] > 0) {
+        let itemInfo = item;
+        itemInfo["quantity"] = cartItems[item._id];
+        orderItems.push(itemInfo);
+      }
+    });
     
-    const subtotal = getTotalCartAmount();
-    const orderData = {
+    let orderData = {
       address: data,
       items: orderItems,
-      amount: subtotal + 2,
-      paymentMethod,
+      amount: getTotalCartAmount() + 2,
+      paymentMethod: paymentMethod,
     };
     
     try {
@@ -77,11 +76,14 @@ const PlaceOrder = () => {
     }
   };
 
-  useEffect(() => {
-    if (!token || getTotalCartAmount() === 0) {
-      navigate("/cart");
+  useEffect(()=>{
+    if(!token){
+      navigate("/cart")
     }
-  }, [getTotalCartAmount, navigate, token]);
+    else if(getTotalCartAmount()===0){
+      navigate("/cart")
+    }
+  },[getTotalCartAmount, navigate, token])
 
   return (
     <form onSubmit={placeOrder} className="place_order">

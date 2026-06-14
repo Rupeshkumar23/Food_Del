@@ -13,34 +13,23 @@ const Orders = ({ url }) => {
   const darkModeClass = theme === "dark" ? "dark" : "";
 
   const fetchAllOrders = async () => {
-    try {
-      const response = await axios.get(url + "/api/order/list");
-      if (response.data.success) {
-        setOrders(response.data.data);
-      } else {
-        toast.error("Unable to fetch orders");
-      }
-    } catch (error) {
-      toast.error("Unable to fetch orders");
+    const response = await axios.get(url + "/api/order/list");
+    if (response.data.success) {
+      setOrders(response.data.data);
+      console.log(response.data.data);
+    } else {
+      toast.error("Error");
     }
   };
-
-  const statusHandler = async (e, orderId) => {
-    try {
-      const response = await axios.post(url + "/api/order/status", {
-        orderId,
-        status: e.target.value,
-      });
-      if (response.data.success) {
-        await fetchAllOrders();
-        toast.success("Order status updated");
-      } else {
-        toast.error("Unable to update status");
-      }
-    } catch (error) {
-      toast.error("Unable to update status");
-    }
-  };
+  const statusHandler = async(e,orderId)=>{
+   const response =await axios.post(url+"/api/order/status",{
+    orderId,
+    status:e.target.value
+   })
+   if(response.data.success){
+    await fetchAllOrders();
+   }
+  }
   
   useEffect(() => {
     fetchAllOrders();
