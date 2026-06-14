@@ -21,15 +21,20 @@ const addFood = async (req, res) => {
       return res.status(400).json({ success: false, message: "Image file is required" });
     }
 
-    const localPath = req.file.path;
     let uploadResult;
-    try {
-      uploadResult = await cloudinary.uploader.upload(localPath, {
-        folder: "food_delivery",
-        resource_type: "image",
+    if (req.file && req.file.buffer) {
+      uploadResult = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "food_delivery", resource_type: "image" },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
+        stream.end(req.file.buffer);
       });
-    } finally {
-      fs.unlink(localPath, () => {});
+    } else {
+      return res.status(400).json({ success: false, message: "Image file is required" });
     }
 
     const food = new foodModel({
@@ -72,15 +77,8 @@ const removeFood = async (req, res) => {
           console.error("Cloudinary destroy error:", destroyError);
         }
       } else {
-        let filename = food.image;
-        if (filename.startsWith("http")) {
-          const matches = filename.match(/(?:\/images\/|\/uploads\/)([^\/]+)$/);
-          filename = matches ? matches[1] : filename;
-        } else if (filename.startsWith("/images/") || filename.startsWith("/uploads/")) {
-          filename = filename.split("/").pop();
-        }
-        const filePath = path.join(__dirname, "..", "uploads", filename);
-        fs.unlink(filePath, () => {});
+        // No Cloudinary id — previously we removed a local file in `uploads`.
+        // Since the app no longer persists files to `uploads`, there's nothing to unlink here.
       }
     }
     await foodModel.findByIdAndDelete(req.body.id);

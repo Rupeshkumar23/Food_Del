@@ -31,8 +31,7 @@ connectDB();
 
 // api endpoints
 app.use("/api/food",foodRouter);
-app.use("/images",express.static(path.join(__dirname, 'uploads')));
-app.use("/uploads",express.static(path.join(__dirname, 'uploads')));
+// Removed static serving of local `uploads` directory; images are served from Cloudinary now.
 app.use("/api/user",userRouter);
 app.use("/api/cart",cartRouter);
 app.use("/api/order",orderRouter);
