@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "backend",
   "version": "1.0.0",
   "description": "",
@@ -20,7 +20,7 @@
     "mongoose": "^8.3.4",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.0",
-    "stripe": "^15.5.0",
+    "razorpay": "^2.0.0",
     "validator": "^13.11.0"
   }
 }

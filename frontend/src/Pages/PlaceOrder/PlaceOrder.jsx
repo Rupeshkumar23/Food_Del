@@ -1,12 +1,22 @@
-import { useContext, useEffect, useState } from "react";
+﻿import { useContext, useEffect, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const loadRazorpayScript = async () => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
 const PlaceOrder = () => {
-  const { getTotalCartAmount, token, foodList, cartItems, url } =
+  const { getTotalCartAmount, token, foodList, cartItems, url, setCartItems } =
     useContext(StoreContext);
   const [paymentMethod, setPaymentMethod] = useState("ONLINE");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -61,9 +71,59 @@ const PlaceOrder = () => {
           toast.success("Order placed successfully with Cash on Delivery!");
           navigate(`/verify?success=true&orderId=${response.data.orderId}`);
         } else {
-          // For online payment, redirect to payment gateway
-          const { session_url } = response.data;
-          window.location.replace(session_url);
+          const scriptLoaded = await loadRazorpayScript();
+          if (!scriptLoaded) {
+            toast.error("Unable to load Razorpay checkout. Please try again.");
+            setIsProcessing(false);
+            return;
+          }
+
+          const options = {
+            key: response.data.keyId,
+            amount: response.data.amount,
+            currency: response.data.currency,
+            name: "FreshBite",
+            description: "Food Order Payment",
+            order_id: response.data.razorpayOrderId,
+            handler: async function (paymentResult) {
+              try {
+                const verifyResponse = await axios.post(url + "/api/order/verify", {
+                  razorpay_payment_id: paymentResult.razorpay_payment_id,
+                  razorpay_order_id: paymentResult.razorpay_order_id,
+                  razorpay_signature: paymentResult.razorpay_signature,
+                  orderId: response.data.orderId,
+                });
+
+                if (verifyResponse.data.success) {
+                  setCartItems({});
+                  toast.success("Payment successful and order confirmed!");
+                  navigate(`/verify?success=true&orderId=${response.data.orderId}`);
+                } else {
+                  toast.error("Payment verification failed. Please contact support.");
+                  setIsProcessing(false);
+                }
+              } catch (verifyError) {
+                console.error("Payment verification error:", verifyError);
+                toast.error("Payment verification failed. Please try again.");
+                setIsProcessing(false);
+              }
+            },
+            prefill: {
+              name: `${data.firstName} ${data.lastName}`,
+              email: data.email,
+              contact: data.phone,
+            },
+            theme: {
+              color: "#3399cc",
+            },
+          };
+
+          const rzp = new window.Razorpay(options);
+          rzp.on("payment.failed", function () {
+            toast.error("Payment failed. Please try again.");
+            setIsProcessing(false);
+          });
+          rzp.open();
         }
       } else {
         toast.error("Error in placing the Order");
@@ -228,3 +288,4 @@ const PlaceOrder = () => {
 };
 
 export default PlaceOrder;
+

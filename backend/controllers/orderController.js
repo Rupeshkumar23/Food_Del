@@ -1,8 +1,12 @@
+import crypto from "crypto";
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
-import Stripe from "stripe";
+import Razorpay from "razorpay";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 // placing user order for frontend
 const placeOrder = async (req, res) => {
@@ -32,53 +36,46 @@ const placeOrder = async (req, res) => {
     await newOrder.save();
     await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
-    const line_items = req.body.items.map((item) => ({
-      price_data: {
-        currency: "inr",
-        product_data: {
-          name: item.name,
-        },
-        unit_amount: item.price * 100 * 80,
-      },
-      quantity: item.quantity
-    }));
+    const amountInPaise = Math.round(req.body.amount * 100);
+    const orderOptions = {
+      amount: amountInPaise,
+      currency: "INR",
+      receipt: `${newOrder._id}`,
+      payment_capture: 1,
+    };
 
-    line_items.push({
-      price_data: {
-        currency: "inr",
-        product_data: {
-          name: "Delivery Charges",
-        },
-        unit_amount: 2 * 100 * 80,
-      },
-      quantity: 1,
+    const razorpayOrder = await razorpay.orders.create(orderOptions);
+    res.json({
+      success: true,
+      orderId: newOrder._id,
+      razorpayOrderId: razorpayOrder.id,
+      amount: orderOptions.amount,
+      currency: orderOptions.currency,
+      keyId: process.env.RAZORPAY_KEY_ID,
     });
-    const session = await stripe.checkout.sessions.create({
-      line_items: line_items,
-      mode: 'payment',
-      success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-      cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`
-    });
-    res.json({ success: true, session_url: session.url });
   } catch (error) {
     console.log(error);
     res.json({success:false,message:"Error"});
   }
 };
-const verifyOrder = async(req,res)=>{
-  const {orderId,success}= req.body;
-  try{
-    if(success=="true"){
-      await orderModel.findByIdAndUpdate(orderId,{payment:true});
-      res.json({success:true,message:"paid"})
+const verifyOrder = async (req, res) => {
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature, orderId } = req.body;
+  try {
+    const generatedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest("hex");
+
+    if (generatedSignature !== razorpay_signature) {
+      await orderModel.findByIdAndDelete(orderId);
+      return res.json({ success: false, message: "Payment verification failed" });
     }
-  else{
-    await orderModel.findByIdAndDelete(orderId);
-    res.json({success:false,message:"Not Paid"})
-  }}
-  catch (error){
-console.log(error);
-res.json({success:false,message:"Error"})
+
+    await orderModel.findByIdAndUpdate(orderId, { payment: true });
+    res.json({ success: true, message: "Payment verified successfully" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
   }
 }
 

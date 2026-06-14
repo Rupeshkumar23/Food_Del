@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+﻿/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import './Verify.css'
@@ -16,42 +16,22 @@ const Verify = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   
-  const verifyPayment = async () => {
-    try {
-      const response = await axios.post(url+"/api/order/verify", {
-        success,
-        orderId
-      });
-      
-      
-      if(response.data.success) {
-        setCartItems({});
-        
-        setIsLoading(false);
-        toast.success("Your order was placed successfully!");
-        setTimeout(() => {
-          navigate("/myorders");
-        }, 2000);
-      } else {
-        setIsLoading(false);
-        toast.error("Your order could not be completed");
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
-      }
-    } catch (error) {
-      console.error("Payment verification error:", error);
+  useEffect(() => {
+    if (success === "true") {
+      setCartItems({});
       setIsLoading(false);
-      toast.error("An error occurred. Please try again later.");
+      toast.success("Your order was placed successfully!");
+      setTimeout(() => {
+        navigate("/myorders");
+      }, 2000);
+    } else {
+      setIsLoading(false);
+      toast.error("Your order could not be completed");
       setTimeout(() => {
         navigate("/");
       }, 2000);
     }
-  }
-  
-  useEffect(() => {
-    verifyPayment();
-  }, []);
+  }, [navigate, setCartItems, success]);
   
   return (
     <div className='verify'>
