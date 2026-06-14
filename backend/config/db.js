@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export const connectDB = async () => {
   const mongoUri = process.env.MONGO_URI?.trim();
 
+  
   if (!mongoUri) {
     console.error(
       "Missing MONGO_URI. Add a valid MongoDB connection string to backend/.env."
