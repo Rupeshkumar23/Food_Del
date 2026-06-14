@@ -18,7 +18,7 @@ const Navbar = ({ setShowLogin }) => {
   const darkModeClass = theme === "dark" ? "dark" : "";
   const [menu, setMenu] = useState("menu");
   const [clicked, setClicked] = useState(false);
-  const { getTotalCartAmount, token, setToken, user, loading } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken, user, setUser, loading } = useContext(StoreContext);
   const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -42,6 +42,7 @@ const Navbar = ({ setShowLogin }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
+    setUser(null);
     navigate("/");
   };
   const handleClick = () => {
@@ -115,6 +116,12 @@ const Navbar = ({ setShowLogin }) => {
 
         ) : !token ? (
           <button onClick={() => setShowLogin(true)}>Sign in</button>
+        ) : !user ? (
+          <div className="load">
+            <li className="ball"></li>
+            <li className="ball"></li>
+            <li className="ball"></li>
+          </div>
         ) : (
           <div className="navbar_profile">
             <img width={27} src={profileIconSrc} alt="profile" />
