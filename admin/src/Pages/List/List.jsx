@@ -7,7 +7,7 @@ import Loader from '../../Loader/Loader'
 import { ThemeContext } from '../../Context/ThemeContext';
 
 const List = ({ url }) => {
-  const [List, setList] = useState([]);
+  const [foodList, setFoodList] = useState([]);
   const [loading, setLoading] = useState(true); 
   const { theme } = useContext(ThemeContext); 
   const darkModeClass = theme === "dark" ? "dark" : "";
@@ -25,10 +25,9 @@ const List = ({ url }) => {
     try {
       const response = await axios.get(`${url}/api/food/list`);
       if (response.data.success) {
-        setList(response.data.data);
+        setFoodList(response.data.data);
       } else {
-        setLoading(true); 
-        toast.error("Error");
+        toast.error("Error fetching food list");
       }
     } catch (error) {
       toast.error("Error");
@@ -67,12 +66,12 @@ const List = ({ url }) => {
           <b>Action</b>
         </div>
         {loading ? (
-          <Loader/> 
+          <Loader />
         ) : (
-          List.map((item, index) => {
+          foodList.map((item) => {
             const itemImageUrl = getImageUrl(item.image);
             return (
-              <div key={index} className='list_table_format'>
+              <div key={item._id} className='list_table_format'>
                 <img src={itemImageUrl} alt="img" />
                 <p>{item.name}</p>
                 <p>{item.category}</p>

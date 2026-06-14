@@ -9,17 +9,17 @@ const loginUser = async (req, res) => {
   try {
     const user = await userModel.findOne({ email });
     if (!user) {
-      return res.json({ success: false, message: "User Doesn't exist" });
+      return res.status(404).json({ success: false, message: "User doesn't exist" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.json({ success: false, message: "Invalid credentials" });
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
     }
     const token = createToken(user._id);
     res.json({ success: true, token });
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error" });
+    console.error("Error logging in user:", error);
+    res.status(500).json({ success: false, message: "Error" });
   }
 };
 
@@ -60,8 +60,8 @@ const registerUser = async (req, res) => {
     const token = createToken(user._id);
     res.json({ success: true, token });
   } catch (error) {
-    console.log("Error in Register User : ", error);
-    res.json({ success: false, message: "Error" });
+    console.error("Error registering user:", error);
+    res.status(500).json({ success: false, message: "Error" });
   }
 };
 // get user details
@@ -74,8 +74,8 @@ const getUser = async (req, res) => {
     }
     res.json({ success: true, user });
   } catch (error) {
-    console.log("Error in Get User : ", error);
-    res.json({ success: false, message: "Error" });
+    console.error("Error fetching user:", error);
+    res.status(500).json({ success: false, message: "Error" });
   }
 };
 

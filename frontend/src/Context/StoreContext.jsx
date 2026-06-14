@@ -9,11 +9,10 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   // const url = "http://localhost:4000";
   const url = "https://food-del-backend-n6zu.onrender.com";
-  const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [token, setToken] = useState(() => localStorage.getItem("token") || "");
+  const [loading, setLoading] = useState(false);
   const [foodList, setFoodList] = useState([]);
-  const [user, setUser] = useState(null || "");
-  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(null);
 
   const addToCart = async (itemId) => {
     try {
@@ -36,7 +35,12 @@ const StoreContextProvider = (props) => {
   const removeFromCart = async (itemId) => {
     try {
       const newCartItems = { ...cartItems };
-      newCartItems[itemId] = newCartItems[itemId] - 1;
+      const currentQuantity = newCartItems[itemId] || 0;
+      if (currentQuantity > 1) {
+        newCartItems[itemId] = currentQuantity - 1;
+      } else {
+        delete newCartItems[itemId];
+      }
       setCartItems(newCartItems);
 
       if (token) {
@@ -84,7 +88,7 @@ const StoreContextProvider = (props) => {
         {},
         { headers: { token } }
       );
-      setCartItems(response.data.cartData);
+      setCartItems(response.data.cartData || {});
     } catch (error) {
       console.error("Error loading cart data:", error);
     }
@@ -109,14 +113,13 @@ const StoreContextProvider = (props) => {
   useEffect(() => {
     async function loadData() {
       await fetchFoodList();
-      if (storedToken) {
-        setToken(storedToken);
-        await loadCartData(storedToken);
-        await fetchUserDetails(storedToken);
+      if (token) {
+        await loadCartData(token);
+        await fetchUserDetails(token);
       }
     }
     loadData();
-  }, [storedToken]);
+  }, [token]);
 
   const contextValue = {
     foodList,

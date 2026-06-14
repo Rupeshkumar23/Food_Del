@@ -10,6 +10,9 @@ const Cart = () => {
   const { theme } = useContext(ThemeContext);
   const darkModeClass = theme === 'dark' ? 'dark' : '';
   const navigate = useNavigate();
+  const subtotal = getTotalCartAmount();
+  const deliveryFee = subtotal > 0 ? 2 : 0;
+  const total = subtotal + deliveryFee;
 
   const getImageUrl = (image) => {
     if (!image) return undefined;
@@ -32,12 +35,13 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {foodList.map((item, index) => {
-          if (cartItems[item._id] > 0) {
+        {foodList
+          .filter((item) => cartItems[item._id] > 0)
+          .map((item) => {
             const itemImageUrl = getImageUrl(item.image);
             return (
-              <>
-                <div key={index} className="cart_items_title cart_items_item">
+              <div key={item._id}>
+                <div className="cart_items_title cart_items_item">
                   <img src={itemImageUrl} alt="img" />
                   <p>{item.name}</p>
                   <p>₹{item.price}</p>
@@ -48,10 +52,9 @@ const Cart = () => {
                   </p>
                 </div>
                 <hr />
-              </>
+              </div>
             );
-          }
-        })}
+          })}
       </div>
       <div className="cart_bottom">
         <div className="cart_total">
@@ -64,12 +67,12 @@ const Cart = () => {
             <hr />
             <div className="cart_total_details">
               <p>Delivery Fee</p>
-              <p>₹{getTotalCartAmount()===0?0:2}</p>
+              <p>₹{deliveryFee}</p>
             </div>
             <hr />
             <div className="cart_total_details">
               <b>Total</b>
-              <b>₹{ getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
+              <b>₹{total}</b>
             </div>
           </div>
           <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
