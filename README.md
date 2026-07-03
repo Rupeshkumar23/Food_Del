@@ -1,6 +1,6 @@
 # FreshBite - Food Delivery Website
 
-FreshBite is a full-stack MERN (MongoDB, Express, React, Node.js) application designed for food delivery. It includes an admin panel for managing food items, orders, and categories, as well as a user-facing frontend for browsing menus, placing orders, and tracking them.
+FreshBite is a full-stack MERN (MongoDB, Express, React, Node.js) application designed for food delivery. It includes an admin panel for managing food items, orders, and categories, as well as  a user-facing frontend for browsing menus, placing orders, and tracking them.
 
 ---
 ## Screenshots
